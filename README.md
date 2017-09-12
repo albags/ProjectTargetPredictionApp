@@ -35,16 +35,13 @@ Run the application
 Go to your browser into [0.0.0.0:5000](http://0.0.0.0:8000/)
 
 ## Table of content
-* Target Prediction base in Chembl database.
-* Molecule information.
-* Find similarities 2D with fingerprints.
-* Find similarities 3D with Usrcat and Electroshape methods.
 
 | 		Content  	 | 				Explanation 	 		|
 | ------------------ | ------------------------------------ |
 | Target Prediction  | Based in ChEMBL database bioactiviy  |
 | Similarity 2D  	 | Using Fingerprint  					|
 | Similarity 3D  	 | Using Usrcat and Electroshap methods |
+| Molecule information  	 |  |
 
 ## Licence
 ProjectTargetPredictionApp is released under the [MIT License](LICENSE).
