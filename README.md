@@ -1,10 +1,6 @@
 # Target Prediction App
 
-Application for: 
-* Target Prediction base in Chembl database.
-* Molecule information.
-* Find similarities 2D with fingerprints.
-* Find similarities 3D with Usrcat and Electroshape methods.
+Application for target prediction and calcul of similarities for small molecules.  
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
@@ -31,12 +27,24 @@ Install database, remember to create the database first in your local mysql
 `$ mysql -u username -p database_name < project_fda.sql`
 
 Change _user_ and _password_ to your local ones in [DBConnect.py](pythonFlask/model/persist/DBConnect.py)
+
 Run the application
 
 `$ python run.py`
 
 Go to your browser into [0.0.0.0:5000](http://0.0.0.0:8000/)
 
+## Table of content
+* Target Prediction base in Chembl database.
+* Molecule information.
+* Find similarities 2D with fingerprints.
+* Find similarities 3D with Usrcat and Electroshape methods.
+
+| 		Content  	 | 				Explanation 	 		|
+| ------------------ | ------------------------------------ |
+| Target Prediction  | Based in ChEMBL database bioactiviy  |
+| Similarity 2D  	 | Using Fingerprint  					|
+| Similarity 3D  	 | Using Usrcat and Electroshap methods |
 
 ## Licence
 ProjectTargetPredictionApp is released under the [MIT License](LICENSE).
