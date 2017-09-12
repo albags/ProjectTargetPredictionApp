@@ -31,10 +31,9 @@ import MySQLdb
 class DBConnect(object):
 	def __init__(self):       
 		self.server = "database"
-		self.user  = "alba"
-		self.password  = "bobYpal2"
+		self.user  = "user"
+		self.password  = "pwd"
 		self.dataBase  = "project_fda"
-		# self.dataBase  = "chembl22_1"
 		return
 
 	"""
