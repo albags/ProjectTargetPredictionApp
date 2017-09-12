@@ -14,7 +14,7 @@ These instructions will get you a copy of the project up and running on your loc
 * [Usrcat](https://bitbucket.org/aschreyer/usrcat)
 * [Electroshape](https://bitbucket.org/aschreyer/electroshape)
 * [Plotly](https://plot.ly/python/getting-started/)
-* [Mysql](https://dev.mysql.com/doc/refman/5.7/en/installing.html)s
+* [Mysql](https://dev.mysql.com/doc/refman/5.7/en/installing.html)
 
 ### Installing & running
 Clone the project on your local machine
