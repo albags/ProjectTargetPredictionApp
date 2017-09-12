@@ -1,0 +1,158 @@
+{% extends 'base/base.html' %}
+
+{% block navMenu %}
+	<ul class="nav navbar-nav navbar-right">
+		<li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+		<li><a href="/targetsForm" onclick='location.reload(true); return false;'>Target Prediction</a></li>
+		<li><a href="/similarityForm">Similarity</a></li>
+		<li><a href="/drugForm">Drug Information</a></li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+<div class="container mainContainer">
+	<div class="row col-xs-11 col-xs-offset-1" ng-controller="TargetController as targetCtrl" ng-init="targetCtrl.initTargetsForm()">
+		<div class="text-left col-xs-10" id="targetsForm"  ng-show="targetAction==0"> 
+			{% block title %} 
+				<h1 align="center"> Target Prediction </h1>
+				<hr>
+			{% endblock %}
+			<hr>
+			<div>
+				<h2>Description</h2>
+				<p class="optionDescription">This website allows you to find targets for a small molecule using a Chembl 22 database of 3 different organisms.</p>
+			<hr>
+			</div>
+			<div id="targetsInfo">    
+				<form class="targetForm" name="targetManagement" method="POST" ng-submit="targetManagement.$valid && targetCtrl.sendCompoundTargetInfo()" novalidate>
+					<div class="form-horizontal">
+						<div class="row">
+							<div class="col-xs-5">
+								<div class="form-group">
+									<h4 align="center">Choose an organism</h4>
+									<div class="col-xs-4"></div>
+									<div class="col-xs-6 radioLeft">
+										<div class="radio"><label><input type="radio" name="type" value="Homo sapiens" ng-model="compoundTarget.organism" required />Homo Sapiens</label></div>
+										<div class="radio"><label><input type="radio" name="type" value="Mus musculus" ng-model="compoundTarget.organism" required />Mus Musculus</label></div>
+										<div class="radio"><label><input type="radio" name="type" value="Rattus norvegicus" ng-model="compoundTarget.organism" required />Rattus Norvegicus</label></div>
+									</div>
+								</div>
+								<hr>
+								<div class="form-group">
+									<h4 align="center">Choose or write a reference molecule</h4>
+									<div class="col-xs-12">
+										<label for="smileCompoundTarget"></label>
+										<input name="smileCompoundTarget" type="text" class="form-control" id="smileCompoundTarget" placeholder="O=Cc1ccc(O)c(OC)c1" ng-model="compoundTarget.smile" placeholder="O=Cc1ccc(O)c(OC)c1" ng-change="targetCtrl.checkSmile(); readMolecule()" required /> 
+										
+									</div>
+									<hr>
+									<hr>
+									<div class="col-xs-2"></div>
+									<div class="col-xs-5" align="left">
+										<label for="smileExemple">
+											<select class="form-control" name="smileExemple" id="smileExemple" ng-model="targetCtrl.smileExemple" ng-change="targetCtrl.getSmileExemple(targetCtrl.smileExemple.getSmile())" ng-options="smileExemple.getName() for smileExemple in smilesArray">
+												<option value="">Examples: </option>
+											</select>
+										</label>
+									</div>
+									<div class="col-xs-3" align="right">
+										<button class="btn btn-info buttonClear" type="button" id="clearButtonTarget" ng-click="clear()">Clear</button>
+									</div>
+								</div>
+								<hr>
+								<div class="col-xs-2"></div>
+								<div class="col-xs-4" align="left">
+									<button id="confirmButtonTarget" class="btn btn-success" type="submit" ng-disabled="targetManagement.$invalid">Submit</button>
+								</div>
+								<div class="col-xs-4" align="right">
+									<button class="btn btn-primary" id="backButtonTarget" type="button" onclick="javascript:location.href='/'">Back</button>
+								</div>
+							</div>
+							<div class="molRepresentation col-xs-6">
+								<iframe src="{{ iframe }}" id="sketch" class="sketcher-frame"></iframe>
+							</div>
+						</div>
+						<!-- The Modal -->
+						<div id="myModalTarget" class="modal">
+							<!-- Modal content -->
+							<div class="modal-content">
+							    <span class="close" ng-click="targetAction=0;clickAbort=true">&times;</span>
+							    <p align="center" class="modalText">Please, wait until process has finished.</p>
+							    <img align="center" src="static/images/spinner4.gif">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 text-left" id="targetResults" ng-show="targetAction==1;"> 
+			<div ng-show="!errorMessage">
+				<div class="surroundedBox molQuery col-xs-5">
+					<!-- Molecule Query 2d draw -->
+					<h4 align="center">Molecule Query</h4>
+					<img src="" id="imgTargetQuery">
+				</div>
+
+				<div class="surroundedBox col-xs-6" id="targetsGraphic">
+					<!-- General target classes plot -->
+					<h4 align="center">Target's classes</h4>
+					<div id="myTargetsPlot"><!-- Plotly chart will be drawn inside this DIV --></div>
+				</div>
+			
+				<h2 class="col-xs-10">Targets found:</h2>
+				<form name="targetResultsForm" class="col-xs-12" novalidate>
+					<table class="table table-bordered" ng-disabled="targetResultsForm.$invalid">
+						<tr><th>Gene Name</th><th>Target class</th><th>Targets per page</th></tr>
+						<tr>
+							<td>
+								<input class="form-control" type="text" ng-model="gene_name" ng-disabled="targetResultsForm.$invalid" />
+							</td>
+							<td>
+								<input class="form-control" type="text" ng-model="target_class" ng-disabled="targetResultsForm.$invalid" />
+							</td>
+							<td>
+								<input type="number" min="1" max="100" class="form-control" ng-model="pageSize" />
+							</td>
+						</tr>
+					</table>
+
+					<table class="table table-condensed" id="example">
+						<!-- Table with results -->
+						<thead>
+							<tr>
+								<th>TARGET</th>
+								<th>GENE NAME</th>
+								<th>UNIPROT ID</th>
+								<th>CHEMBL ID</th>
+								<th>TARGET CLASS</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr dir-paginate="targetResult in filteredData | itemsPerPage: pageSize" current-page="currentPage">
+								<td>{{ "{{ targetResult.getTarget() }}" }}</td>
+								<td>{{ "{{ targetResult.getGeneName() }}" }}</td>
+								<td>{{ "{{ targetResult.getUniprotId() }}" }}</td>
+								<td>{{ "{{ targetResult.getChemblId() }}" }}</td>
+								<td>{{ "{{ targetResult.getTargetClass() }}" }}</td>
+							</tr>
+						</tbody>
+
+					</table>
+
+					<div class="text-center" boundary-links="true">
+						<dir-pagination-controls boundary-links="true" template-url="static/angularJS/pagination/dir-pagination-controls.html"></dir-pagination-controls>
+					</div>
+				</form>
+			</div>
+
+			<div align="center" ng-show="errorMessage" class="alert alert-danger fade in">{{ '{{ errorMessage }}' }}</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+{% endblock %}

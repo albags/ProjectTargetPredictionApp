@@ -1,0 +1,96 @@
+{
+  "_args": [
+    [
+      "angular-i18n",
+      "/var/www/html/Test_DAW2_2016-01-19_Forms_Solution"
+    ]
+  ],
+  "_from": "angular-i18n@latest",
+  "_id": "angular-i18n@1.6.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-i18n",
+  "_nodeVersion": "6.9.2",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular-i18n-1.6.1.tgz_1482490870895_0.37195573723874986"
+  },
+  "_npmUser": {
+    "email": "angular-core+npm@google.com",
+    "name": "angularcore"
+  },
+  "_npmVersion": "3.10.9",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "angular-i18n",
+    "raw": "angular-i18n",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-i18n/-/angular-i18n-1.6.1.tgz",
+  "_shasum": "ce683ab70fbf484fa959f15eb2c4ee6c272086a3",
+  "_shrinkwrap": null,
+  "_spec": "angular-i18n",
+  "_where": "/var/www/html/Test_DAW2_2016-01-19_Forms_Solution",
+  "author": {
+    "email": "angular-core+npm@google.com",
+    "name": "Angular Core Team"
+  },
+  "bugs": {
+    "url": "https://github.com/angular/angular.js/issues"
+  },
+  "dependencies": {},
+  "description": "AngularJS module for internationalization",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "ce683ab70fbf484fa959f15eb2c4ee6c272086a3",
+    "tarball": "https://registry.npmjs.org/angular-i18n/-/angular-i18n-1.6.1.tgz"
+  },
+  "gitHead": "d46e3e1a2fd4dfbaff7b00cc663ef2ea15901029",
+  "homepage": "http://angularjs.org",
+  "jspm": {
+    "shim": {
+      "angular-i18n": {
+        "deps": [
+          "angular"
+        ]
+      }
+    }
+  },
+  "keywords": [
+    "angular",
+    "browser",
+    "client-side",
+    "framework",
+    "i18n",
+    "internationalization"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    }
+  ],
+  "name": "angular-i18n",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.6.1"
+}

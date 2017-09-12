@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block navMenu %}
+	<ul class="nav navbar-nav navbar-right">
+		<li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+		<li><a href="/targetsForm">Target Prediction</a></li>
+		<li><a href="/similarityForm">Similarity</a></li>
+		<li><a href="/drugForm">Drug Information</a></li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="container mainMenu">
+		<div class="row">
+			{% block title %} 
+					
+			{% endblock %}
+
+			<div class="col-xs-4 optionsDiv">
+				<a href="/targetsForm"><div class="optionsContent" id="optionTarget"></div></a>
+				<hr>
+				<div class="optionText">
+					<p class="title">Target Prediction</p>
+					<p>Find the targets of a small molecule. </p>
+					<a class="optionLink" href="/targetsForm">Learn more >></a>
+				</div>
+			</div>
+			<div class="col-xs-4 optionsDiv">
+				<a href="/similarityForm"><div class="optionsContent" id="optionSimilarity"></div></a>
+				<hr>
+				<div class="optionText">
+					<p class="title">Similarities</p>
+					<p>Find similar molecules using different approaches.</p>
+					<a class="optionLink" href="/similarityForm">Learn more >></a>
+				</div>
+			</div>
+			<div class="col-xs-4 optionsDiv">
+				<a href="/drugForm"><div class="optionsContent" id="optionDrug"></div></a>
+				<hr>
+				<div class="optionText">
+					<p class="title">Drug Information</p>
+					<p>Find information for a small molecule.</p>
+					<a class="optionLink" href="/drugForm">Learn more >></a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+	

@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html ng-app="projectApp" xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="Alba Gómez Segura">
+
+		<title>AppAngularJSFlask</title>
+
+		<!-- Own CSS -->
+		<link rel="stylesheet" type="text/css" href="../static/css/reset.css" />
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" type="text/css" href="../static/vendors/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../static/vendors/bootstrap/css/business-frontpage.css" />		
+
+		<!-- Own CSS -->
+		<link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+
+		<!-- Angular -->
+		<script src="../static/vendors/angular/js/angular.min.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/angular/js/angular-file-upload.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/angular/js/angular-i18n/angular-locale_es-es.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/angular/js/dirPagination.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/angular/js/angular-route.min.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/angular/js/plotly-latest.min.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/angular/js/angular-cookies.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/angular/js/ng-currency.js" type="text/javascript" xml:space="preserve"></script>
+
+		<!-- jQuery -->
+		<script src="../static/vendors/jquery/js/jQuery.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/jquery/js/jquery-1.12.4.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/jquery/js/jquery.min.js" type="text/javascript" xml:space="preserve"></script>
+
+		<!-- Bootstrap -->
+		<script src="../static/vendors/bootstrap/js/ui-bootstrap-tpls-2.3.1.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/vendors/bootstrap/js/bootstrap.min.js" type="text/javascript" xml:space="preserve"></script>	
+
+		<!-- Own code -->
+		<!-- Model-->
+		<script src="../static/angularJS/model/Smile.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/model/MoleculeTargetForm.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/model/MoleculeTargetResult.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/model/MoleculeSimilarityForm.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/model/MoleculeSimilarityResult.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/model/MoleculeDrugForm.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/model/MoleculeDrugResult.js" type="text/javascript" xml:space="preserve"></script>
+		
+		<!-- Control-->
+		<script src="../static/angularJS/app.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/control/SessionController.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/control/TargetController.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/control/SimilarityController.js" type="text/javascript" xml:space="preserve"></script>
+		<script src="../static/angularJS/control/DrugController.js" type="text/javascript" xml:space="preserve"></script>
+
+	</head>
+
+	<body ng-controller="SessionController as sessionCtrl" ng-init="sessionCtrl.sessionControl()">
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="container">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<img id="logoProven" src="../static/images/proven.png"> 
+					<img id="logoMtB" src="../static/images/MtB.jpg"> 
+					{% block navMenu %}
+
+					{% endblock %}
+				</div>
+			</div>
+		</nav>
+
+		<div>
+			{% block content %}
+			
+				{% block title %} {% endblock %}
+
+				<!-- Block content -->
+
+			{% endblock %}
+		</div>
+
+		<div class="row">
+			<footer class="container-fluid text-center">
+				&copy; Application project
+			</footer>
+		</div>
+
+	</body>
+
+</html>

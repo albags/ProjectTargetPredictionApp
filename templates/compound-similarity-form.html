@@ -1,0 +1,107 @@
+{% extends 'base/base.html' %}
+
+{% block navMenu %}
+	<ul class="nav navbar-nav navbar-right">
+		<li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+		<li><a href="/targetsForm">Target Prediction</a></li>
+		<li><a href="/similarityForm" onclick='location.reload(true); return false;'>Similarity</a></li>
+		<li><a href="/drugForm">Drug Information</a></li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="container mainContainer">
+		<div class="row col-xs-11 col-xs-offset-1" ng-controller="SimilarityController as similarityCtrl" ng-init="similarityCtrl.initSimilarityForm()">
+			<div class="col-xs-10 text-left" id="similarityForm" ng-show="similarityAction==0"> 
+				{% block title %} 
+					<h1 align="center"> Similarity </h1>
+					<hr>
+				{% endblock %}
+				<h2>Description</h2>
+				<p class="optionDescription">This website allows you to calculate similarities between compounds using 2D and 3D similarity measures in Chembl 22 database.</p>
+				<hr>
+				<div id="similarityInfo">    
+					<form class="similarityManagement" name="similarityManagement" ng-submit="similarityManagement.$valid && similarityCtrl.sendCompoundSimilarityInfo()" novalidate>
+						<div class="form-horizontal">
+							<div class="row">
+								<div class="col-xs-5">
+									<div class="form-group">
+										<h4 align="center">Choose or write a reference molecule</h4>
+										<div class="col-xs-12">
+											<label for="smile"></label>
+												<input type="text" class="form-control" id="smileCompoundSim" ng-model="compoundSimilarity.smile" placeholder="O=Cc1ccc(O)c(OC)c1" ng-change="similarityCtrl.checkSmile()" required /> 
+										</div>
+										<hr>
+										<div class="col-xs-2"></div>
+										<div class="col-xs-5" align="left">
+											<label for="smileOptions">
+												<select name="smileOptions" class="form-control" id="smileExemple" ng-model="similarityCtrl.smileExemple" ng-change="similarityCtrl.getSmileExemple(similarityCtrl.smileExemple.getSmile())" ng-options="smileExemple.getName() for smileExemple in smilesArray">
+													<option value="">Examples: </option>
+												</select>
+											</label>
+										</div>
+										<div class="col-xs-3" align="right">
+											<button class="btn btn-info buttonClear" type="button" id="clearButtonSimilarity" ng-click="clear()">Clear</button>
+										</div>
+									</div>
+									<hr>
+									<div class="form-group">
+										<h4 align="center">Choose a virtual screening method</h4>
+										<div class="col-xs-4"></div>
+										<div class="col-xs-6 radioLeft">
+											<div class="radio"><label><input type="radio" name="type" value="fingerprint" ng-model="compoundSimilarity.typeSimilarity" required />FP2 Fingerprints <span data-toggle="tooltip" title="Fingerprints technique allows you to compare molecules using binary strings comparison methods." class="glyphicon glyphicon-info-sign infoIcon" aria-hidden="true"></span></label></div>
+											
+											<div class="radio"><label><input type="radio" name="type" value="electroshape" ng-model="compoundSimilarity.typeSimilarity" required />Electroshape <span data-toggle="tooltip" title="Electroshape is a molecular shape similarity techniques for molecules with similar 3D shapes. In Electroshape each shape is encoded by a vector of 15 geometrical features which if derived from four strategically-located reference points with similar locations in similar molecules." class="glyphicon glyphicon-info-sign infoIcon" aria-hidden="true"></span></label></div>
+											
+											<div class="radio"><label><input type="radio" name="type" value="usrcat" ng-model="compoundSimilarity.typeSimilarity" required />Usrcat <span data-toggle="tooltip" title="Usrcat is molecular shape similarity techniques for molecules with similar 3D shapes. In Usrcat each shape is encoded by a vector of 12 geometrical features which is derived from four strategically-located reference points with similar locations in similar molecules." class="glyphicon glyphicon-info-sign infoIcon" aria-hidden="true"></span></label></div>
+										</div>
+									</div>
+									<hr>
+									<div class="col-xs-2"></div>
+									<div class="col-xs-4" align="left">
+										<button id="confirmButtonSimilarity" class="btn btn-success" type="submit" ng-disabled="similarityManagement.$invalid">Submit</button>
+									</div>
+									<div class="col-xs-4" align="right">
+										<button class="btn btn-primary" id="backButtonSimilarity" type="button" onclick="javascript:location.href='/'">Back</button>
+									</div>
+								</div>
+								<div class="molRepresentation col-xs-6">
+									<iframe src="{{ iframe }}" id="sketch" class="sketcher-frame"></iframe>
+								</div>
+							</div>
+							<!-- The Modal -->
+							<div id="myModalSimil" class="modal">
+								<!-- Modal content -->
+								<div class="modal-content">
+								    <span class="close" ng-click="similarityAction=0;clickAbort=true">&times;</span>
+								    <p align="center" class="modalText">Please, wait until process has finished.</p>
+								    <img align="center" src="static/images/spinner4.gif">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="col-xs-12 text-left" id="similarityResults" ng-show="similarityAction==1"> 
+				<div ng-show="!errorMessage">
+					<div class="surroundedBox molQuery col-xs-5">
+						<!-- Molecule Query 2d draw -->
+						<h4 align="center">Molecule Query</h4>
+						<img src="" id="imgSimilarityQuery">
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div ng-repeat="mol in similarityArray | orderBy:'-similarity'">
+						<div class="simResults">
+							<a href="{{ ''.join(['https://www.ebi.ac.uk/chembldb/index.php/compound/inspect/', '{{ mol.getChemblId() }}' ]) }}" target="_blank">{{ "{{ mol.getChemblId() }}" }}</a>
+							<p>similarity: {{ "{{ mol.getSimilarity() }}" }}</p>
+							<img title='' class='imageSimResult' ng-src="static/images/similarityResultsImgs/{{ "{{ mol.getChemblId() }}" }}.png?{{ time }}">
+						</div>
+					</div>
+				</div>
+				<div align="center" ng-show="errorMessage" class="alert alert-danger fade in">{{ '{{ errorMessage }}' }}</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
