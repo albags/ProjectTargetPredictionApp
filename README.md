@@ -26,8 +26,6 @@ Clone the project on your local machine
 Install database, remember to create the database first in your local mysql
 `$ mysql -u username -p database_name < project_fda.sql`
 
-Change _user_ and _password_ to your local ones in [DBConnect.py](pythonFlask/model/persist/DBConnect.py)
-
 Run the application
 
 `$ python run.py`
