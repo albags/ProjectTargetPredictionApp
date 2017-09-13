@@ -32,7 +32,7 @@ class DBConnect(object):
 	def __init__(self):       
 		self.server = "database"
 		self.user  = "user"
-		self.password  = "pwd"
+		self.password  = "userpwd"
 		self.dataBase  = "project_fda"
 		return
 
